@@ -12,6 +12,20 @@ getACall.addEventListener('click',(e)=>{
    
 });
 
+window.addEventListener('DOMContentLoaded',()=>{
+    axios.get('https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData')
+    .then((res)=>{
+        for(let i=0;i<res.data.length;i++){
+            showUSersOnScreen(res.data[i]);
+        }
+    })
+})
+
+function showUSersOnScreen(data){
+    document.body.innerHTML = document.body.innerHTML + `<li>${data.userName} - ${data.userEmail}
+    - ${data.userPhoneNo} - ${data.dateOfApp} - ${data.timeOfApp}</li>`
+}
+
 
 function saveToCloud(){
     let userDetails={
@@ -23,7 +37,6 @@ function saveToCloud(){
     }
     axios.post('https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData',userDetails)
     .then((res)=>{
-        console.log(res.data)
         showOnScreen(res.data);
     })
     .catch((err)=>{
