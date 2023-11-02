@@ -16,15 +16,13 @@ window.addEventListener('DOMContentLoaded',()=>{
     axios.get('https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData')
     .then((res)=>{
         for(let i=0;i<res.data.length;i++){
-            showUSersOnScreen(res.data[i]);
+            showUserOnScreen(res.data[i]);
         }
     })
+    .catch((err)=>{
+        alert('something went wrong')
+    })
 })
-
-function showUSersOnScreen(data){
-    document.body.innerHTML = document.body.innerHTML + `<li>${data.userName} - ${data.userEmail}
-    - ${data.userPhoneNo} - ${data.dateOfApp} - ${data.timeOfApp}</li>`
-}
 
 
 function saveToCloud(){
@@ -37,7 +35,7 @@ function saveToCloud(){
     }
     axios.post('https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData',userDetails)
     .then((res)=>{
-        showOnScreen(res.data);
+        showUserOnScreen(res.data);
     })
     .catch((err)=>{
         alert(err);
@@ -45,7 +43,7 @@ function saveToCloud(){
 }
 
 
-function showOnScreen(data){
+function showUserOnScreen(data){
     let ul= document.createElement('ul');
     let body=document.querySelector('.bg-img');
     let li=document.createElement('li');
@@ -79,6 +77,10 @@ function showOnScreen(data){
 
     function deleteDetails(e){
         ul.remove(li);
+        axios.delete(`https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData/${data._id}`)
+        .catch((err)=>{
+            alert('something went wrong');
+        })
     }
 
     function addToInput(e){
