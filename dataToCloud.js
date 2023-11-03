@@ -13,7 +13,7 @@ getACall.addEventListener('click',(e)=>{
 });
 
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData')
+    axios.get('https://crudcrud.com/api/c2b6c7d421ad4937976867d84a3fdeb8/appointmentData')
     .then((res)=>{
         for(let i=0;i<res.data.length;i++){
             showUserOnScreen(res.data[i]);
@@ -33,7 +33,7 @@ function saveToCloud(){
         dateOfApp: date.value,
         timeOfApp: time.value, 
     }
-    axios.post('https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData',userDetails)
+    axios.post('https://crudcrud.com/api/c2b6c7d421ad4937976867d84a3fdeb8/appointmentData',userDetails)
     .then((res)=>{
         showUserOnScreen(res.data);
     })
@@ -69,28 +69,34 @@ function showUserOnScreen(data){
 
      //event for delete button
      deleteBtn.addEventListener('click',deleteDetails);
+     deleteBtn.addEventListener('click',deleteFromScreen)
 
      //event for edit button
-     editBtn.addEventListener('click',addToInput);
-     editBtn.addEventListener('click',deleteDetails);
+     editBtn.addEventListener('click',addToInputAndUpdate);
+     editBtn.addEventListener('click',deleteFromScreen);
 
-
-    function deleteDetails(e){
-        ul.remove(li);
-        axios.delete(`https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData/${data._id}`)
+    
+    function deleteDetails(){
+        axios.delete(`https://crudcrud.com/api/c2b6c7d421ad4937976867d84a3fdeb8/appointmentData/${data._id}`)
         .catch((err)=>{
             alert('something went wrong');
-        })
+        });
+    }
+    
+    function deleteFromScreen(){
+        ul.remove(li);
     }
 
-    function addToInput(e){
+    function addToInputAndUpdate(e){
         e.preventDefault();
+        name.value= data.userName;
         email.value= data.userEmail;
         phoneNo.value= data.userPhoneNo;
         date.value= data.dateOfApp;
         time.value= data.timeOfApp;
+
+        deleteDetails();
     }
 }
-
 
 
