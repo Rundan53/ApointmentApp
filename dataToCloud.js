@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     })
     .catch((err)=>{
         alert('something went wrong')
-    })
+    });
 })
 
 
@@ -85,6 +85,11 @@ function showUserOnScreen(data){
     
     function deleteFromScreen(){
         ul.remove(li);
+        axios.delete(`https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData/${data._id}`)
+        .then((res)=>{
+
+        })
+        .catch((err)=>alert('Something Went Wrong'))
     }
 
     function addToInputAndUpdate(e){
