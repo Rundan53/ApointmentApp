@@ -74,10 +74,12 @@ function showUserOnScreen(data){
      //event for edit button
      editBtn.addEventListener('click',addToInputAndUpdate);
      editBtn.addEventListener('click',deleteFromScreen);
-
     
     function deleteDetails(){
         axios.delete(`https://crudcrud.com/api/c2b6c7d421ad4937976867d84a3fdeb8/appointmentData/${data._id}`)
+        .then((res)=>{
+            alert('Deleted From Database');
+        })
         .catch((err)=>{
             alert('something went wrong');
         });
@@ -85,11 +87,6 @@ function showUserOnScreen(data){
     
     function deleteFromScreen(){
         ul.remove(li);
-        axios.delete(`https://crudcrud.com/api/c70d8387e28548b29055e1b7cae46474/appointmentData/${data._id}`)
-        .then((res)=>{
-
-        })
-        .catch((err)=>alert('Something Went Wrong'))
     }
 
     function addToInputAndUpdate(e){
